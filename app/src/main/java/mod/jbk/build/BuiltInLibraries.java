@@ -103,11 +103,13 @@ public class BuiltInLibraries {
     public static String FIREBASE_MEASUREMENT_CONNECTOR = "firebase-measurement-connector-18.0.0";
     public static String FIREBASE_MESSAGING = "firebase-messaging-19.0.0";
     public static String FIREBASE_STORAGE = "firebase-storage-19.0.0";
+    public static String FAILUREACCESS = "failureaccess-1.0.1";
     public static String GLIDE = "glide-5.0.4";
     public static String GLIDE_ANNOTATIONS = "annotations-5.0.4";
     public static String GLIDE_DISKLRUCACHE = "disklrucache-5.0.4";
     public static String GLIDE_GIFDECODER = "gifdecoder-5.0.4";
     public static String GSON = "gson-2.13.1";
+    public static String GUAVA = "guava-32.1.3-android";
     public static String HTTP_LEGACY_ANDROID = "http-legacy-android-28";
     public static String JETBRAINS_ANNOTATIONS = "annotations-23.0.0";
     public static String JETBRAINS_KOTLINX_COROUTINES_ANDROID = "kotlinx-coroutines-android-1.8.1";
@@ -116,6 +118,16 @@ public class BuiltInLibraries {
     public static String JSPECIFY = "jspecify-1.0.0";
     public static String LOTTIE = "lottie-6.6.10";
     public static String MATERIAL = "material-1.13.0";
+    public static String MEDIA3_COMMON = "media3-common-1.3.1";
+    public static String MEDIA3_CONTAINER = "media3-container-1.3.1";
+    public static String MEDIA3_DATABASE = "media3-database-1.3.1";
+    public static String MEDIA3_DATASOURCE = "media3-datasource-1.3.1";
+    public static String MEDIA3_DECODER = "media3-decoder-1.3.1";
+    public static String MEDIA3_EXOPLAYER = "media3-exoplayer-1.3.1";
+    public static String MEDIA3_EXOPLAYER_DASH = "media3-exoplayer-dash-1.3.1";
+    public static String MEDIA3_EXOPLAYER_HLS = "media3-exoplayer-hls-1.3.1";
+    public static String MEDIA3_EXTRACTOR = "media3-extractor-1.3.1";
+    public static String MEDIA3_UI = "media3-ui-1.3.1";
     public static String OKHTTP_ANDROID = "okhttp-android-5.1.0";
     public static String OKIO_JVM = "okio-jvm-3.15.0";
     public static String OTPVIEW = "OTPView-0.1.0";
@@ -356,6 +368,8 @@ public class BuiltInLibraries {
 
             new BuiltInLibrary(ERROR_PRONE_ANNOTATIONS),
 
+            new BuiltInLibrary(FAILUREACCESS, List.of(ERROR_PRONE_ANNOTATIONS)),
+
             new BuiltInLibrary(FIREBASE_AUTH, List.of(ANDROIDX_COLLECTION_JVM, ANDROIDX_FRAGMENT, ANDROIDX_LOCALBROADCASTMANAGER,
                     PLAY_SERVICES_BASE, PLAY_SERVICES_BASEMENT, PLAY_SERVICES_TASKS,
                     FIREBASE_AUTH_INTEROP, FIREBASE_COMMON)),
@@ -400,6 +414,8 @@ public class BuiltInLibraries {
 
             new BuiltInLibrary(GSON, List.of(ERROR_PRONE_ANNOTATIONS)),
 
+            new BuiltInLibrary(GUAVA, List.of(ERROR_PRONE_ANNOTATIONS, FAILUREACCESS)),
+
             new BuiltInLibrary(HTTP_LEGACY_ANDROID),
 
             new BuiltInLibrary(JETBRAINS_ANNOTATIONS),
@@ -421,6 +437,29 @@ public class BuiltInLibraries {
                     ANDROIDX_GRAPHICS_SHAPES_ANDROID, ANDROIDX_LIFECYCLE_RUNTIME,
                     ANDROIDX_RECYCLERVIEW, ANDROIDX_TRANSITION, ANDROIDX_VECTORDRAWABLE,
                     ANDROIDX_VIEWPAGER2, ERROR_PRONE_ANNOTATIONS, JETBRAINS_KOTLIN_STDLIB), "com.google.android.material"),
+
+            new BuiltInLibrary(MEDIA3_COMMON, List.of(ANDROIDX_ANNOTATION_JVM, ANDROIDX_COLLECTION_JVM,
+                    ANDROIDX_CONCURRENT_FUTURES, ANDROIDX_CORE, ERROR_PRONE_ANNOTATIONS,
+                    GUAVA, JETBRAINS_KOTLIN_STDLIB)),
+
+            new BuiltInLibrary(MEDIA3_CONTAINER, List.of(MEDIA3_COMMON)),
+
+            new BuiltInLibrary(MEDIA3_DATABASE, List.of(MEDIA3_COMMON)),
+
+            new BuiltInLibrary(MEDIA3_DATASOURCE, List.of(MEDIA3_COMMON, MEDIA3_DATABASE)),
+
+            new BuiltInLibrary(MEDIA3_DECODER, List.of(MEDIA3_COMMON)),
+
+            new BuiltInLibrary(MEDIA3_EXOPLAYER, List.of(MEDIA3_COMMON, MEDIA3_CONTAINER, MEDIA3_DATABASE,
+                    MEDIA3_DATASOURCE, MEDIA3_DECODER, MEDIA3_EXTRACTOR), "androidx.media3.exoplayer"),
+
+            new BuiltInLibrary(MEDIA3_EXOPLAYER_DASH, List.of(MEDIA3_COMMON, MEDIA3_EXOPLAYER)),
+
+            new BuiltInLibrary(MEDIA3_EXOPLAYER_HLS, List.of(MEDIA3_COMMON, MEDIA3_EXOPLAYER)),
+
+            new BuiltInLibrary(MEDIA3_EXTRACTOR, List.of(MEDIA3_COMMON, MEDIA3_CONTAINER)),
+
+            new BuiltInLibrary(MEDIA3_UI, List.of(MEDIA3_COMMON), "androidx.media3.ui"),
 
             new BuiltInLibrary(OKHTTP_ANDROID, List.of(ANDROIDX_ANNOTATION_JVM, ANDROIDX_STARTUP_RUNTIME, OKIO_JVM,
                     JETBRAINS_KOTLIN_STDLIB)),
