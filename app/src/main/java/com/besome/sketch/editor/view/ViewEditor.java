@@ -28,6 +28,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.besome.sketch.beans.ProjectFileBean;
+import com.besome.sketch.beans.ProjectLibraryBean;
 import com.besome.sketch.beans.ProjectResourceBean;
 import com.besome.sketch.beans.ViewBean;
 import com.besome.sketch.beans.WidgetCollectionBean;
@@ -422,14 +423,14 @@ public class ViewEditor extends RelativeLayout implements View.OnClickListener, 
                     }
                 } else if (currentTouchedView instanceof IconBase icon) {
                     ViewBean bean = icon.getBean();
-                    bean.id = generateWidgetId(bean);
-                    viewPane.updateViewBeanProperties(bean, (int) motionEvent.getRawX(), (int) motionEvent.getRawY());
-                    jC.a(a).a(b, bean);
-                    AnalyticsHelper.logUiComponentAdded(getContext(), icon.getWidgetName());
-                    if (bean.type == 3 && projectFileBean.fileType == ProjectFileBean.PROJECT_FILE_TYPE_ACTIVITY) {
-                        jC.a(a).a(projectFileBean.getJavaName(), 1, bean.type, bean.id, "onClick");
+                    if (bean.type == ViewBeans.VIEW_TYPE_WIDGET_MEDIA3PLAYERVIEW && !isAppCompatEnabled()) {
+                        float dropX = motionEvent.getRawX();
+                        float dropY = motionEvent.getRawY();
+                        resetDragStateAfterDrop();
+                        showMedia3NeedCompatDialog(icon, dropX, dropY);
+                        return true;
                     }
-                    a(a(bean, true), true);
+                    addPaletteWidgetToPane(icon, bean, motionEvent.getRawX(), motionEvent.getRawY());
                 } else if (currentTouchedView instanceof ItemView sy) {
                     ViewBean bean = sy.getBean();
                     viewPane.updateViewBeanProperties(bean, (int) motionEvent.getRawX(), (int) motionEvent.getRawY());
@@ -461,6 +462,76 @@ public class ViewEditor extends RelativeLayout implements View.OnClickListener, 
             jC.a(a).a(projectFileBean, b2.get(size));
         }
         b(b2, true);
+    }
+
+    /**
+     * Adds a widget dropped from the palette to the view pane.
+     */
+    private void addPaletteWidgetToPane(IconBase icon, ViewBean bean, float rawX, float rawY) {
+        bean.id = generateWidgetId(bean);
+        viewPane.updateViewBeanProperties(bean, (int) rawX, (int) rawY);
+        jC.a(a).a(b, bean);
+        AnalyticsHelper.logUiComponentAdded(getContext(), icon.getWidgetName());
+        if (bean.type == 3 && projectFileBean.fileType == ProjectFileBean.PROJECT_FILE_TYPE_ACTIVITY) {
+            jC.a(a).a(projectFileBean.getJavaName(), 1, bean.type, bean.id, "onClick");
+        }
+        a(a(bean, true), true);
+    }
+
+    /**
+     * Resets drag state after a palette drop, mirroring the cleanup at the end of onTouch.
+     */
+    private void resetDragStateAfterDrop() {
+        paletteWidget.setScrollEnabled(true);
+        paletteFavorite.setScrollEnabled(true);
+        if (draggingListener != null) {
+            draggingListener.d();
+        }
+        b(false, false);
+        dummyView.setDummyVisibility(View.GONE);
+        currentTouchedView = null;
+        viewPane.clearViews();
+        handler.removeCallbacks(longPressRunnable);
+        isDragged = false;
+    }
+
+    /**
+     * Checks whether AppCompat is enabled for the current project.
+     */
+    private boolean isAppCompatEnabled() {
+        try {
+            ProjectLibraryBean compatBean = jC.c(a).c();
+            return compatBean != null && ProjectLibraryBean.LIB_USE_Y.equals(compatBean.useYn);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Gate dialog shown when Media3Player is dropped but AppCompat isn't enabled.
+     * Offers a one-tap shortcut to enable AppCompat, then adds the widget.
+     */
+    private void showMedia3NeedCompatDialog(IconBase icon, float dropX, float dropY) {
+        new MaterialAlertDialogBuilder(getContext())
+                .setTitle(getString(R.string.design_library_media3_title_need_compat))
+                .setMessage(getString(R.string.design_library_media3_message_need_compat))
+                .setPositiveButton(getString(R.string.common_word_ok), (dialog, which) -> {
+                    try {
+                        ProjectLibraryBean compatBean = jC.c(a).c();
+                        if (compatBean == null) {
+                            compatBean = new ProjectLibraryBean(ProjectLibraryBean.PROJECT_LIB_TYPE_COMPAT);
+                        }
+                        compatBean.useYn = ProjectLibraryBean.LIB_USE_Y;
+                        jC.c(a).b(compatBean);
+                        jC.c(a).k();
+                    } catch (Exception e) {
+                        Log.e("ViewEditor", "Failed to enable AppCompat", e);
+                    }
+                    ViewBean bean = icon.getBean();
+                    addPaletteWidgetToPane(icon, bean, dropX, dropY);
+                })
+                .setNegativeButton(getString(R.string.common_word_cancel), null)
+                .show();
     }
 
     public void setFavoriteData(ArrayList<WidgetCollectionBean> arrayList) {
