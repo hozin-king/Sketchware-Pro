@@ -22,6 +22,11 @@ public class ExtLibSelected {
         if (component.isYoutubePlayerUsed) {
             kp.addLibrary(BuiltInLibraries.ANDROID_YOUTUBE_PLAYER);
         }
+        if (component.isMedia3PlayerUsed) {
+            kp.addLibrary(BuiltInLibraries.MEDIA3_EXOPLAYER_DASH);
+            kp.addLibrary(BuiltInLibraries.MEDIA3_EXOPLAYER_HLS);
+            kp.addLibrary(BuiltInLibraries.MEDIA3_UI);
+        }
         if (component.isCircleImageViewUsed) {
             kp.addLibrary(BuiltInLibraries.CIRCLEIMAGEVIEW);
         }

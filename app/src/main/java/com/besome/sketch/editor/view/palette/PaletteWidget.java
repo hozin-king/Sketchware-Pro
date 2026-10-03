@@ -35,6 +35,7 @@ import dev.aldi.sayuti.editor.view.palette.IconTextInputLayout;
 import dev.aldi.sayuti.editor.view.palette.IconViewPager;
 import dev.aldi.sayuti.editor.view.palette.IconWaveSideBar;
 import dev.aldi.sayuti.editor.view.palette.IconYoutubePlayer;
+import dev.aldi.sayuti.editor.view.palette.IconMedia3Player;
 import mod.agus.jcoderz.editor.view.palette.IconAnalogClock;
 import mod.agus.jcoderz.editor.view.palette.IconAutoCompleteTextView;
 import mod.agus.jcoderz.editor.view.palette.IconDatePicker;
@@ -203,6 +204,7 @@ public class PaletteWidget extends LinearLayout {
             case "CircleImageView" -> new IconCircleImageView(context);
             case "LottieAnimation" -> new IconLottieAnimation(context);
             case "YoutubePlayer" -> new IconYoutubePlayer(context);
+            case "Media3Player" -> new IconMedia3Player(context);
             case "OTPView" -> new IconOTPView(context);
             case "CodeView" -> new IconCodeView(context);
             case "RecyclerView" -> new IconRecyclerView(context);

@@ -231,6 +231,7 @@ public class kq {
             case "resource" -> "Image";
             case "googlelogin" -> "FirebaseGoogleSignIn";
             case "youtubeview" -> "YoutubePlayer";
+            case "mediaplayerview" -> "Media3Player";
             case "cardview" -> "CardView";
             case "radiogroup" -> "RadioGroup";
             case "color" -> "Color";

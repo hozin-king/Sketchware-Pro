@@ -275,6 +275,10 @@ public class Gx {
                 classInfos = "View.Clickable.YoutubePlayer";
                 break;
 
+            case "Media3PlayerView":
+                classInfos = "View.Clickable.Media3Player";
+                break;
+
             case "OTPView":
                 classInfos = "View.Clickable.OTPView";
                 break;
