@@ -37,6 +37,7 @@ public class ViewBeans {
     public static final int VIEW_TYPE_WIDGET_OTPVIEW = 46;
     public static final int VIEW_TYPE_WIDGET_CODEVIEW = 47;
     public static final int VIEW_TYPE_WIDGET_RECYCLERVIEW = 48;
+    public static final int VIEW_TYPE_WIDGET_MEDIA3PLAYERVIEW = 49;
 
     /**
      * Map that stores both a view's type and type name.
@@ -72,6 +73,7 @@ public class ViewBeans {
             .put(VIEW_TYPE_WIDGET_OTPVIEW, "OTPView")
             .put(VIEW_TYPE_WIDGET_CODEVIEW, "CodeView")
             .put(VIEW_TYPE_WIDGET_RECYCLERVIEW, "RecyclerView")
+            .put(VIEW_TYPE_WIDGET_MEDIA3PLAYERVIEW, "Media3PlayerView")
             .build();
 
     public static String buildClassInfo(int id) {
@@ -116,6 +118,7 @@ public class ViewBeans {
             case VIEW_TYPE_WIDGET_YOUTUBEPLAYERVIEW -> R.drawable.ic_mtrl_youtube;
             case VIEW_TYPE_WIDGET_OTPVIEW -> R.drawable.ic_mtrl_password;
             case VIEW_TYPE_WIDGET_CODEVIEW -> R.drawable.ic_mtrl_terminal;
+            case VIEW_TYPE_WIDGET_MEDIA3PLAYERVIEW -> R.drawable.ic_mtrl_media3player;
             default -> id;
         };
     }

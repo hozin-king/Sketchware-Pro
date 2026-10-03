@@ -130,6 +130,8 @@ public class ExtraPaletteBlock {
                     jC.a(sc_id).d(javaName, ComponentBean.COMPONENT_TYPE_FIREBASE_AUTH_GOOGLE_LOGIN, str2);
             case "youtubeview" ->
                     jC.a(sc_id).g(xmlName, ViewBeans.VIEW_TYPE_WIDGET_YOUTUBEPLAYERVIEW, str2);
+            case "mediaplayerview" ->
+                    jC.a(sc_id).g(xmlName, ViewBeans.VIEW_TYPE_WIDGET_MEDIA3PLAYERVIEW, str2);
             case "signinbutton" ->
                     jC.a(sc_id).g(xmlName, ViewBeans.VIEW_TYPE_WIDGET_SIGNINBUTTON, str2);
             case "cardview" -> jC.a(sc_id).g(xmlName, ViewBeans.VIEW_TYPE_LAYOUT_CARDVIEW, str2);
