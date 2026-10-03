@@ -280,6 +280,7 @@ public class ViewEditorFragment extends qA {
         viewEditor.addWidget(PaletteWidget.b.n, "", "MapView", "MapView");
         viewEditor.extraWidget("", "SignInButton", "SignInButton");
         viewEditor.extraWidget("", "YoutubePlayer", "YoutubePlayer");
+        viewEditor.extraWidget("", "Media3Player", "Media3Player");
         widgetsCreatorManager.addWidgetsByTitle("Google");
 
         viewEditor.paletteWidget.extraTitle("Date & Time", 1);

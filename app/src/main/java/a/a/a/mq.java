@@ -207,6 +207,7 @@ public class mq {
             case "resource" -> "Image";
             case "googlelogin" -> "FirebaseGoogleSignIn";
             case "youtubeview" -> "YoutubePlayer";
+            case "mediaplayerview" -> "Media3Player";
             case "cardview" -> "CardView";
             case "radiogroup" -> "RadioGroup";
             case "color" -> "Color";
@@ -540,6 +541,23 @@ public class mq {
                 importList.add("com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView");
                 importList.add("com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer");
                 importList.add("com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener");
+                return importList;
+
+            case "Media3PlayerView":
+                importList.add("androidx.media3.ui.PlayerView");
+                importList.add("androidx.media3.common.C");
+                importList.add("androidx.media3.common.MediaItem");
+                importList.add("androidx.media3.common.MimeTypes");
+                importList.add("androidx.media3.common.PlaybackException");
+                importList.add("androidx.media3.common.Player");
+                importList.add("androidx.media3.common.Tracks");
+                importList.add("androidx.media3.datasource.DefaultHttpDataSource");
+                importList.add("androidx.media3.exoplayer.ExoPlayer");
+                importList.add("androidx.media3.exoplayer.dash.DashMediaSource");
+                importList.add("androidx.media3.exoplayer.hls.HlsMediaSource");
+                importList.add("androidx.media3.exoplayer.source.MediaSource");
+                importList.add("androidx.media3.exoplayer.source.ProgressiveMediaSource");
+                importList.add("androidx.media3.exoplayer.trackselection.TrackSelectionOverride");
                 return importList;
 
             case "OTPView":
