@@ -12,8 +12,11 @@ tasks.register('createMockGoogleServices') {
         if (rootMockFile.exists() && rootMockFile.length() == 0) {
             rootMockFile.delete()
         }
-        def mockFile = file("src/debug/google-services.json")
-        if (!mockFile.exists()) {
+        // Forks don't have the GOOGLE_SERVICES_JSON secret; mock every variant
+        // so the google-services plugin doesn't fail release builds.
+        ["src/debug", "src/release"].each { variantDir ->
+            def mockFile = file("$variantDir/google-services.json")
+            if (!mockFile.exists()) {
             mockFile.parentFile.mkdirs()
             def mockContent = """{
   "project_info": {
@@ -46,6 +49,7 @@ tasks.register('createMockGoogleServices') {
   "configuration_version": "1"
 }"""
             mockFile.text = mockContent
+            }
         }
     }
 }
