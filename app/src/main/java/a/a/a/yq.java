@@ -527,6 +527,7 @@ public class yq {
                     case "PatternLockView" -> N.x.isPatternLockViewUsed = true;
                     case "WaveSideBar" -> N.x.isWaveSideBarUsed = true;
                     case "YouTubePlayerView" -> N.x.isYoutubePlayerUsed = true;
+                    case "PlayerView" -> N.x.isMedia3PlayerUsed = true;
                     case "SwipeRefreshLayout" -> N.x.isSwipeRefreshLayoutUsed = true;
                 }
             }
@@ -600,6 +601,7 @@ public class yq {
                     case "PatternLockView" -> N.x.isPatternLockViewUsed = true;
                     case "WaveSideBar" -> N.x.isWaveSideBarUsed = true;
                     case "YouTubePlayerView" -> N.x.isYoutubePlayerUsed = true;
+                    case "PlayerView" -> N.x.isMedia3PlayerUsed = true;
                     case "SwipeRefreshLayout" -> N.x.isSwipeRefreshLayoutUsed = true;
                 }
             }
