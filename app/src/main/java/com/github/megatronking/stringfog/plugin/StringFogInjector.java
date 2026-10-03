@@ -22,10 +22,11 @@ import mod.jbk.util.LogUtil;
 
 public class StringFogInjector {
 
-    public static void processDirectory(File compiledClassesDir, File mappingFile) {
+    public static void processDirectory(File compiledClassesDir, File mappingFile, String key) {
         try {
             IStringFog stringFogImpl = new StringFogImpl();
-            IKeyGenerator keyGenerator = new HardCodeKeyGenerator("UTF-8");
+            String effectiveKey = (key == null || key.isEmpty()) ? "UTF-8" : key;
+            IKeyGenerator keyGenerator = new HardCodeKeyGenerator(effectiveKey);
             List<String> logs = new ArrayList<>();
             String fogClassName = "com.github.megatronking.stringfog.xor.StringFogImpl";
 

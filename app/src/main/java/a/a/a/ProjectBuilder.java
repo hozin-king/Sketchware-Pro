@@ -972,11 +972,16 @@ public class ProjectBuilder {
         LogUtil.d(TAG, "ProGuard took " + (System.currentTimeMillis() - savedTimeMillis) + " ms");
     }
 
-    public void runStringfog() {
+    public void runStringfog(String key) {
         try {
+            // NOTE: the mapping file stays in the project's bin/ directory on the device.
+            // It is never packaged into the APK/AAB: buildApk() only adds the resources
+            // APK plus DEX files, and the AAB bundler only picks *.dex out of bin/.
+            // It is intentionally kept (not auto-deleted) as a debugging aid, since it
+            // contains the original strings in plain text.
             File mappingFile = new File(yq.binDirectoryPath, "stringFogMapping.txt");
             File compiledClassesDir = new File(yq.compiledClassesPath);
-            StringFogInjector.processDirectory(compiledClassesDir, mappingFile);
+            StringFogInjector.processDirectory(compiledClassesDir, mappingFile, key);
             KB.a(context, "stringfog/stringfog.zip", yq.compiledClassesPath);
         } catch (Exception e) {
             LogUtil.e("StringFog", "Failed to run StringFog", e);
