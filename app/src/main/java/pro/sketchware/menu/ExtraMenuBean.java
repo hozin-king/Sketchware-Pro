@@ -222,6 +222,7 @@ public class ExtraMenuBean {
                     case "otpview":
                     case "signinbutton":
                     case "youtubeview":
+                    case "mediaplayerview":
                     case "codeview":
                     case "datepicker":
                     case "timepicker":
