@@ -2045,6 +2045,787 @@ public class BlocksHandler {
         hashMap.put("spec", "%m.youtubeview addYouTubePlayerListener VideoID %s");
         arrayList.add(hashMap);
 
+        // ===== Media3PlayerView blocks =====
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetUrl");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  String _m3url = %2$s;\r\n"
+                        + "  String _m3mime = null;\r\n"
+                        + "  if (_m3url.contains(\".m3u8\")) _m3mime = MimeTypes.APPLICATION_M3U8;\r\n"
+                        + "  else if (_m3url.contains(\".mpd\")) _m3mime = MimeTypes.APPLICATION_MPD;\r\n"
+                        + "  MediaItem.Builder _m3mib = new MediaItem.Builder().setUri(_m3url).setMimeType(_m3mime);\r\n"
+                        + "  String _m3drm = (String) _m3st.get(\"drm\");\r\n"
+                        + "  if (_m3drm != null) { _m3mib.setDrmConfiguration(new MediaItem.DrmConfiguration.Builder(androidx.media3.common.C.WIDEVINE_UUID).setLicenseUri(_m3drm).build()); }\r\n"
+                        + "  MediaItem _m3mi = _m3mib.build();\r\n"
+                        + "  DefaultHttpDataSource.Factory _m3dsf = new DefaultHttpDataSource.Factory();\r\n"
+                        + "  String _m3ua = (String) _m3st.get(\"ua\");\r\n"
+                        + "  if (_m3ua != null) _m3dsf.setUserAgent(_m3ua);\r\n"
+                        + "  java.util.HashMap _m3props = new java.util.HashMap();\r\n"
+                        + "  String _m3ref = (String) _m3st.get(\"ref\");\r\n"
+                        + "  if (_m3ref != null) _m3props.put(\"Referer\", _m3ref);\r\n"
+                        + "  java.util.HashMap _m3hh = (java.util.HashMap) _m3st.get(\"h\");\r\n"
+                        + "  if (_m3hh != null) _m3props.putAll(_m3hh);\r\n"
+                        + "  if (!_m3props.isEmpty()) _m3dsf.setDefaultRequestProperties(_m3props);\r\n"
+                        + "  MediaSource.Factory _m3msf;\r\n"
+                        + "  if (_m3url.contains(\".m3u8\")) _m3msf = new HlsMediaSource.Factory(_m3dsf);\r\n"
+                        + "  else if (_m3url.contains(\".mpd\")) _m3msf = new DashMediaSource.Factory(_m3dsf);\r\n"
+                        + "  else _m3msf = new ProgressiveMediaSource.Factory(_m3dsf);\r\n"
+                        + "  _m3pl.setMediaSource(_m3msf.createMediaSource(_m3mi));\r\n"
+                        + "  _m3pl.prepare();\r\n"
+                        + "  _m3pl.play();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set media URL %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetUrlWithHeaders");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  _m3st.put(\"h\", %3$s);\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  String _m3url = %2$s;\r\n"
+                        + "  String _m3mime = null;\r\n"
+                        + "  if (_m3url.contains(\".m3u8\")) _m3mime = MimeTypes.APPLICATION_M3U8;\r\n"
+                        + "  else if (_m3url.contains(\".mpd\")) _m3mime = MimeTypes.APPLICATION_MPD;\r\n"
+                        + "  MediaItem _m3mi = new MediaItem.Builder().setUri(_m3url).setMimeType(_m3mime).build();\r\n"
+                        + "  DefaultHttpDataSource.Factory _m3dsf = new DefaultHttpDataSource.Factory();\r\n"
+                        + "  String _m3ua = (String) _m3st.get(\"ua\");\r\n"
+                        + "  if (_m3ua != null) _m3dsf.setUserAgent(_m3ua);\r\n"
+                        + "  java.util.HashMap _m3props = new java.util.HashMap();\r\n"
+                        + "  String _m3ref = (String) _m3st.get(\"ref\");\r\n"
+                        + "  if (_m3ref != null) _m3props.put(\"Referer\", _m3ref);\r\n"
+                        + "  java.util.HashMap _m3hh = (java.util.HashMap) _m3st.get(\"h\");\r\n"
+                        + "  if (_m3hh != null) _m3props.putAll(_m3hh);\r\n"
+                        + "  if (!_m3props.isEmpty()) _m3dsf.setDefaultRequestProperties(_m3props);\r\n"
+                        + "  MediaSource.Factory _m3msf;\r\n"
+                        + "  if (_m3url.contains(\".m3u8\")) _m3msf = new HlsMediaSource.Factory(_m3dsf);\r\n"
+                        + "  else if (_m3url.contains(\".mpd\")) _m3msf = new DashMediaSource.Factory(_m3dsf);\r\n"
+                        + "  else _m3msf = new ProgressiveMediaSource.Factory(_m3dsf);\r\n"
+                        + "  _m3pl.setMediaSource(_m3msf.createMediaSource(_m3mi));\r\n"
+                        + "  _m3pl.prepare();\r\n"
+                        + "  _m3pl.play();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set media URL %s with headers %m.varMap");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetUserAgent");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); %1$s.setTag(_m3st); }\r\n"
+                        + "  _m3st.put(\"ua\", %2$s);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set User-Agent %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetReferer");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); %1$s.setTag(_m3st); }\r\n"
+                        + "  _m3st.put(\"ref\", %2$s);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set Referer %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetDrm");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); %1$s.setTag(_m3st); }\r\n"
+                        + "  _m3st.put(\"drm\", %2$s);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set Widevine license URL %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pPlay");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.play();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview play");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pPause");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.pause();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview pause");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pStop");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.stop();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview stop");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSeekTo");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.seekTo((long) %2$s);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview seek to %d ms");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pRelease");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) { _m3pl.release(); _m3st.remove(\"p\"); }\r\n"
+                        + "  %1$s.setPlayer(null);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview release player");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetVolume");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.setVolume((float) %2$s / 100.0f);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set volume %d %%");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pSetSpeed");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) _m3pl.setPlaybackSpeed((float) %2$s / 100.0f);\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set speed %d %%");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pIsPlaying");
+        hashMap.put("type", "b");
+        hashMap.put(
+                "code",
+                "((java.util.HashMap) %s.getTag()) != null && ((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")) != null && ((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")).isPlaying()");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview is playing");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pGetDuration");
+        hashMap.put("type", "d");
+        hashMap.put(
+                "code",
+                "((java.util.HashMap) %s.getTag()) == null ? 0 : (((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")) == null ? 0 : ((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")).getDuration())");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview get duration");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pGetPosition");
+        hashMap.put("type", "d");
+        hashMap.put(
+                "code",
+                "((java.util.HashMap) %s.getTag()) == null ? 0 : (((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")) == null ? 0 : ((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")).getCurrentPosition())");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview get position");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pGetBuffered");
+        hashMap.put("type", "d");
+        hashMap.put(
+                "code",
+                "((java.util.HashMap) %s.getTag()) == null ? 0 : (((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")) == null ? 0 : ((ExoPlayer) ((java.util.HashMap) %s.getTag()).get(\"p\")).getBufferedPosition())");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview get buffered position");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pOnReady");
+        hashMap.put("type", "c");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override\r\n"
+                        + "    public void onPlaybackStateChanged(int _state) {\r\n"
+                        + "      if (_state == Player.STATE_READY) {\r\n"
+                        + "        %2$s\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  });\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview on ready");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pOnBuffering");
+        hashMap.put("type", "c");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override\r\n"
+                        + "    public void onPlaybackStateChanged(int _state) {\r\n"
+                        + "      if (_state == Player.STATE_BUFFERING) {\r\n"
+                        + "        %2$s\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  });\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview on buffering");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pOnError");
+        hashMap.put("type", "c");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override\r\n"
+                        + "    public void onPlayerError(PlaybackException _error) {\r\n"
+                        + "      %2$s\r\n"
+                        + "    }\r\n"
+                        + "  });\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview on error");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pOnCompleted");
+        hashMap.put("type", "c");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override\r\n"
+                        + "    public void onPlaybackStateChanged(int _state) {\r\n"
+                        + "      if (_state == Player.STATE_ENDED) {\r\n"
+                        + "        %2$s\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  });\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview on completed");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "m3pPlayChannel");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  final ExoPlayer _m3fpl = _m3pl;\r\n"
+                        + "  final java.util.HashMap _m3fst = _m3st;\r\n"
+                        + "  java.util.ArrayList<String> _m3urls = new java.util.ArrayList<>();\r\n"
+                        + "  _m3urls.add(%2$s);\r\n"
+                        + "  String _m3backups = %3$s;\r\n"
+                        + "  if (_m3backups != null && !_m3backups.isEmpty()) {\r\n"
+                        + "    for (String _u : _m3backups.split(\"\\\\n\")) { if (!_u.trim().isEmpty()) _m3urls.add(_u.trim()); }\r\n"
+                        + "  }\r\n"
+                        + "  final int[] _m3idx = {0};\r\n"
+                        + "  Runnable _m3try = new Runnable() {\r\n"
+                        + "    @Override public void run() {\r\n"
+                        + "      if (_m3idx[0] >= _m3urls.size()) return;\r\n"
+                        + "      String _url = _m3urls.get(_m3idx[0]);\r\n"
+                        + "      String _mime = null;\r\n"
+                        + "      if (_url.contains(\".m3u8\")) _mime = MimeTypes.APPLICATION_M3U8;\r\n"
+                        + "      else if (_url.contains(\".mpd\")) _mime = MimeTypes.APPLICATION_MPD;\r\n"
+                        + "      MediaItem _mi = new MediaItem.Builder().setUri(_url).setMimeType(_mime).build();\r\n"
+                        + "      DefaultHttpDataSource.Factory _dsf = new DefaultHttpDataSource.Factory();\r\n"
+                        + "      String _ua = (String) _m3fst.get(\"ua\");\r\n"
+                        + "      if (_ua != null) _dsf.setUserAgent(_ua);\r\n"
+                        + "      MediaSource.Factory _msf;\r\n"
+                        + "      if (_url.contains(\".m3u8\")) _msf = new HlsMediaSource.Factory(_dsf);\r\n"
+                        + "      else if (_url.contains(\".mpd\")) _msf = new DashMediaSource.Factory(_dsf);\r\n"
+                        + "      else _msf = new ProgressiveMediaSource.Factory(_dsf);\r\n"
+                        + "      _m3fpl.setMediaSource(_msf.createMediaSource(_mi));\r\n"
+                        + "      _m3fpl.prepare();\r\n"
+                        + "      _m3fpl.play();\r\n"
+                        + "    }\r\n"
+                        + "  };\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override public void onPlayerError(PlaybackException _e) {\r\n"
+                        + "      _m3idx[0]++;\r\n"
+                        + "      _m3try.run();\r\n"
+                        + "    }\r\n"
+                        + "  });\r\n"
+                        + "  _m3try.run();\r\n"
+                        + "}");
+        hashMap.put("color", "#FF6D00");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview play channel URL %s with backup URLs %s");
+        arrayList.add(hashMap);
+
+        // ===== End Media3PlayerView blocks =====
+
+        // ===== IPTV Playlist blocks =====
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvLoadPlaylist");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  final String _url = %2$s;\r\n"
+                        + "  final java.util.ArrayList<java.util.HashMap<String, Object>> _out = %3$s;\r\n"
+                        + "  new Thread(new Runnable() {\r\n"
+                        + "    @Override public void run() {\r\n"
+                        + "      try {\r\n"
+                        + "        java.net.URL _u = new java.net.URL(_url);\r\n"
+                        + "        java.net.HttpURLConnection _c = (java.net.HttpURLConnection) _u.openConnection();\r\n"
+                        + "        _c.setConnectTimeout(15000); _c.setReadTimeout(15000);\r\n"
+                        + "        java.io.InputStream _is = _c.getInputStream();\r\n"
+                        + "        java.util.Scanner _sc = new java.util.Scanner(_is).useDelimiter(\"\\\\A\");\r\n"
+                        + "        String _json = _sc.hasNext() ? _sc.next() : \"\";\r\n"
+                        + "        _sc.close(); _is.close();\r\n"
+                        + "        org.json.JSONObject _root = new org.json.JSONObject(_json);\r\n"
+                        + "        org.json.JSONArray _groups = _root.getJSONArray(\"groups\");\r\n"
+                        + "        final java.util.ArrayList<java.util.HashMap<String, Object>> _result = new java.util.ArrayList<>();\r\n"
+                        + "        for (int _gi = 0; _gi < _groups.length(); _gi++) {\r\n"
+                        + "          org.json.JSONObject _g = _groups.getJSONObject(_gi);\r\n"
+                        + "          java.util.HashMap<String, Object> _gm = new java.util.HashMap<>();\r\n"
+                        + "          _gm.put(\"name\", _g.optString(\"name\", \"Group \" + (_gi + 1)));\r\n"
+                        + "          java.util.ArrayList<java.util.HashMap<String, Object>> _channels = new java.util.ArrayList<>();\r\n"
+                        + "          org.json.JSONArray _chArr = _g.optJSONArray(\"channels\");\r\n"
+                        + "          if (_chArr != null) {\r\n"
+                        + "            for (int _ci = 0; _ci < _chArr.length(); _ci++) {\r\n"
+                        + "              org.json.JSONObject _ch = _chArr.getJSONObject(_ci);\r\n"
+                        + "              java.util.HashMap<String, Object> _cm = new java.util.HashMap<>();\r\n"
+                        + "              _cm.put(\"name\", _ch.optString(\"name\", \"Channel \" + (_ci + 1)));\r\n"
+                        + "              _cm.put(\"logo\", _ch.optString(\"logo\", \"\"));\r\n"
+                        + "              _cm.put(\"url\", _ch.optString(\"url\", \"\"));\r\n"
+                        + "              _cm.put(\"userAgent\", _ch.optString(\"userAgent\", \"\"));\r\n"
+                        + "              _cm.put(\"referer\", _ch.optString(\"referer\", \"\"));\r\n"
+                        + "              org.json.JSONObject _hdrs = _ch.optJSONObject(\"headers\");\r\n"
+                        + "              java.util.HashMap<String, Object> _hm = new java.util.HashMap<>();\r\n"
+                        + "              if (_hdrs != null) { java.util.Iterator<String> _keys = _hdrs.keys(); while (_keys.hasNext()) { String _k = _keys.next(); _hm.put(_k, _hdrs.optString(_k, \"\")); } }\r\n"
+                        + "              _cm.put(\"headers\", _hm);\r\n"
+                        + "              _cm.put(\"drm\", _ch.optString(\"drm\", \"\"));\r\n"
+                        + "              _cm.put(\"clearKeyId\", _ch.optString(\"clearKeyId\", \"\"));\r\n"
+                        + "              _cm.put(\"clearKey\", _ch.optString(\"clearKey\", \"\"));\r\n"
+                        + "              java.util.ArrayList<String> _bu = new java.util.ArrayList<>();\r\n"
+                        + "              org.json.JSONArray _buArr = _ch.optJSONArray(\"backupUrls\");\r\n"
+                        + "              if (_buArr != null) { for (int _bi = 0; _bi < _buArr.length(); _bi++) _bu.add(_buArr.optString(_bi, \"\")); }\r\n"
+                        + "              _cm.put(\"backupUrls\", _bu);\r\n"
+                        + "              _channels.add(_cm);\r\n"
+                        + "            }\r\n"
+                        + "          }\r\n"
+                        + "          _gm.put(\"channels\", _channels);\r\n"
+                        + "          _result.add(_gm);\r\n"
+                        + "        }\r\n"
+                        + "        runOnUiThread(new Runnable() {\r\n"
+                        + "          @Override public void run() { _out.clear(); _out.addAll(_result); %4$s }\r\n"
+                        + "        });\r\n"
+                        + "      } catch (final Exception _e) {\r\n"
+                        + "        runOnUiThread(new Runnable() {\r\n"
+                        + "          @Override public void run() { %5$s }\r\n"
+                        + "        });\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  }).start();\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview load IPTV playlist from URL %s to %m.listMap on success %m.Command on error %m.Command");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvPlayChannel");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap<String, Object> _ch = %2$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  String _ua = (String) _ch.get(\"userAgent\");\r\n"
+                        + "  if (_ua != null && !_ua.isEmpty()) _m3st.put(\"ua\", _ua);\r\n"
+                        + "  String _ref = (String) _ch.get(\"referer\");\r\n"
+                        + "  if (_ref != null && !_ref.isEmpty()) _m3st.put(\"ref\", _ref);\r\n"
+                        + "  java.util.HashMap _hdrs = (java.util.HashMap) _ch.get(\"headers\");\r\n"
+                        + "  if (_hdrs != null && !_hdrs.isEmpty()) _m3st.put(\"h\", _hdrs);\r\n"
+                        + "  String _drm = (String) _ch.get(\"drm\");\r\n"
+                        + "  if (_drm != null && !_drm.isEmpty()) _m3st.put(\"drm\", _drm); else _m3st.remove(\"drm\");\r\n"
+                        + "  String _ckId = (String) _ch.get(\"clearKeyId\");\r\n"
+                        + "  String _ck = (String) _ch.get(\"clearKey\");\r\n"
+                        + "  if (_ckId != null && !_ckId.isEmpty() && _ck != null && !_ck.isEmpty()) { _m3st.put(\"ckid\", _ckId); _m3st.put(\"ck\", _ck); } else { _m3st.remove(\"ckid\"); _m3st.remove(\"ck\"); }\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl == null) { _m3pl = new ExoPlayer.Builder(_m3pv.getContext()).build(); _m3pv.setPlayer(_m3pl); _m3st.put(\"p\", _m3pl); }\r\n"
+                        + "  final ExoPlayer _fpl = _m3pl;\r\n"
+                        + "  final java.util.HashMap _fst = _m3st;\r\n"
+                        + "  java.util.ArrayList<String> _urls = new java.util.ArrayList<>();\r\n"
+                        + "  String _mainUrl = (String) _ch.get(\"url\");\r\n"
+                        + "  if (_mainUrl != null && !_mainUrl.isEmpty()) _urls.add(_mainUrl);\r\n"
+                        + "  java.util.ArrayList<String> _bu = (java.util.ArrayList<String>) _ch.get(\"backupUrls\");\r\n"
+                        + "  if (_bu != null) for (String _u : _bu) if (_u != null && !_u.isEmpty()) _urls.add(_u);\r\n"
+                        + "  final int[] _idx = {0};\r\n"
+                        + "  final Runnable _try = new Runnable() {\r\n"
+                        + "    @Override public void run() {\r\n"
+                        + "      if (_idx[0] >= _urls.size()) return;\r\n"
+                        + "      String _url = _urls.get(_idx[0]);\r\n"
+                        + "      String _mime = null;\r\n"
+                        + "      if (_url.contains(\".m3u8\")) _mime = MimeTypes.APPLICATION_M3U8;\r\n"
+                        + "      else if (_url.contains(\".mpd\")) _mime = MimeTypes.APPLICATION_MPD;\r\n"
+                        + "      MediaItem.Builder _mib = new MediaItem.Builder().setUri(_url).setMimeType(_mime);\r\n"
+                        + "      String _d = (String) _fst.get(\"drm\");\r\n"
+                        + "      String _cid = (String) _fst.get(\"ckid\");\r\n"
+                        + "      String _ckv = (String) _fst.get(\"ck\");\r\n"
+                        + "      if (_d != null) _mib.setDrmConfiguration(new MediaItem.DrmConfiguration.Builder(androidx.media3.common.C.WIDEVINE_UUID).setLicenseUri(_d).build());\r\n"
+                        + "      else if (_cid != null && _ckv != null) _mib.setDrmConfiguration(new MediaItem.DrmConfiguration.Builder(androidx.media3.common.C.CLEARKEY_UUID).setLicenseUri(\"https://example.com\").build());\r\n"
+                        + "      DefaultHttpDataSource.Factory _dsf = new DefaultHttpDataSource.Factory();\r\n"
+                        + "      String _sua = (String) _fst.get(\"ua\");\r\n"
+                        + "      if (_sua != null) _dsf.setUserAgent(_sua);\r\n"
+                        + "      java.util.HashMap _props = new java.util.HashMap();\r\n"
+                        + "      String _sref = (String) _fst.get(\"ref\");\r\n"
+                        + "      if (_sref != null) _props.put(\"Referer\", _sref);\r\n"
+                        + "      java.util.HashMap _sh = (java.util.HashMap) _fst.get(\"h\");\r\n"
+                        + "      if (_sh != null) _props.putAll(_sh);\r\n"
+                        + "      if (!_props.isEmpty()) _dsf.setDefaultRequestProperties(_props);\r\n"
+                        + "      MediaSource.Factory _msf;\r\n"
+                        + "      if (_url.contains(\".m3u8\")) _msf = new HlsMediaSource.Factory(_dsf);\r\n"
+                        + "      else if (_url.contains(\".mpd\")) _msf = new DashMediaSource.Factory(_dsf);\r\n"
+                        + "      else _msf = new ProgressiveMediaSource.Factory(_dsf);\r\n"
+                        + "      _fpl.setMediaSource(_msf.createMediaSource(_mib.build()));\r\n"
+                        + "      _fpl.prepare(); _fpl.play();\r\n"
+                        + "    }\r\n"
+                        + "  };\r\n"
+                        + "  _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "    @Override public void onPlayerError(PlaybackException _e) { _idx[0]++; _try.run(); }\r\n"
+                        + "  });\r\n"
+                        + "  _try.run();\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview play IPTV channel %m.varMap");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSetAutoReconnect");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  PlayerView _m3pv = %1$s;\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st == null) { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  _m3st.put(\"reconnect\", %2$s);\r\n"
+                        + "  ExoPlayer _m3pl = (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null && %2$s) {\r\n"
+                        + "    final ExoPlayer _fpl = _m3pl;\r\n"
+                        + "    _m3pl.addListener(new Player.Listener() {\r\n"
+                        + "      @Override public void onPlayerError(PlaybackException _e) {\r\n"
+                        + "        _fpl.seekToDefaultPosition(); _fpl.prepare(); _fpl.play();\r\n"
+                        + "      }\r\n"
+                        + "    });\r\n"
+                        + "  }\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set auto-reconnect %m.varBool");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSleepTimer");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  final PlayerView _m3pv = %1$s;\r\n"
+                        + "  long _mins = (long) %2$s;\r\n"
+                        + "  android.os.Handler _h = new android.os.Handler(android.os.Looper.getMainLooper());\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) _m3pv.getTag();\r\n"
+                        + "  if (_m3st != null) { Runnable _old = (Runnable) _m3st.get(\"sleep\"); if (_old != null) _h.removeCallbacks(_old); }\r\n"
+                        + "  else { _m3st = new java.util.HashMap(); _m3pv.setTag(_m3st); }\r\n"
+                        + "  final java.util.HashMap _fst = _m3st;\r\n"
+                        + "  Runnable _sleep = new Runnable() {\r\n"
+                        + "    @Override public void run() {\r\n"
+                        + "      ExoPlayer _p = (ExoPlayer) _fst.get(\"p\");\r\n"
+                        + "      if (_p != null) _p.pause();\r\n"
+                        + "    }\r\n"
+                        + "  };\r\n"
+                        + "  _m3st.put(\"sleep\", _sleep);\r\n"
+                        + "  _h.postDelayed(_sleep, _mins * 60 * 1000);\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview set sleep timer %d minutes");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvEnterPip");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {\r\n"
+                        + "    android.app.PictureInPictureParams _params = new android.app.PictureInPictureParams.Builder().build();\r\n"
+                        + "    enterPictureInPictureMode(_params);\r\n"
+                        + "  }\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview enter picture-in-picture");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvToggleFavorite");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  String _key = \"iptv_fav_\" + %2$s;\r\n"
+                        + "  android.content.SharedPreferences _sp = getSharedPreferences(\"iptv_prefs\", MODE_PRIVATE);\r\n"
+                        + "  boolean _isFav = _sp.getBoolean(_key, false);\r\n"
+                        + "  _sp.edit().putBoolean(_key, !_isFav).apply();\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview toggle favorite for channel %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvIsFavorite");
+        hashMap.put("type", "b");
+        hashMap.put(
+                "code",
+                "getSharedPreferences(\"iptv_prefs\", MODE_PRIVATE).getBoolean(\"iptv_fav_\" + %s, false)");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview is channel %s favorite");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSaveLastWatched");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "getSharedPreferences(\"iptv_prefs\", MODE_PRIVATE).edit().putString(\"iptv_last_url\", %2$s).putString(\"iptv_last_name\", %3$s).apply();");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview save last watched URL %s name %s");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvGetLastWatchedUrl");
+        hashMap.put("type", "s");
+        hashMap.put(
+                "code",
+                "getSharedPreferences(\"iptv_prefs\", MODE_PRIVATE).getString(\"iptv_last_url\", \"\")");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview get last watched URL");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvGetLastWatchedName");
+        hashMap.put("type", "s");
+        hashMap.put(
+                "code",
+                "getSharedPreferences(\"iptv_prefs\", MODE_PRIVATE).getString(\"iptv_last_name\", \"\")");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview get last watched name");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSearchChannels");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.ArrayList<java.util.HashMap<String, Object>> _groups = %2$s;\r\n"
+                        + "  String _query = %3$s.toLowerCase();\r\n"
+                        + "  java.util.ArrayList<java.util.HashMap<String, Object>> _out = %4$s;\r\n"
+                        + "  _out.clear();\r\n"
+                        + "  for (java.util.HashMap<String, Object> _g : _groups) {\r\n"
+                        + "    java.util.ArrayList<java.util.HashMap<String, Object>> _chs = (java.util.ArrayList<java.util.HashMap<String, Object>>) _g.get(\"channels\");\r\n"
+                        + "    if (_chs == null) continue;\r\n"
+                        + "    for (java.util.HashMap<String, Object> _ch : _chs) {\r\n"
+                        + "      String _name = (String) _ch.get(\"name\");\r\n"
+                        + "      if (_name != null && _name.toLowerCase().contains(_query)) _out.add(_ch);\r\n"
+                        + "    }\r\n"
+                        + "  }\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview search channels in %m.listMap for %s to %m.listMap");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSelectAudioTrack");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) {\r\n"
+                        + "    int _idx = (int) %2$s;\r\n"
+                        + "    _m3pl.setTrackSelectionParameters(_m3pl.getTrackSelectionParameters().buildUpon().setPreferredAudioLanguage(null).build());\r\n"
+                        + "    androidx.media3.common.Tracks _tracks = _m3pl.getCurrentTracks();\r\n"
+                        + "    int _ai = 0;\r\n"
+                        + "    for (androidx.media3.common.Tracks.Group _g : _tracks.getGroups()) {\r\n"
+                        + "      if (_g.getType() == androidx.media3.common.C.TRACK_TYPE_AUDIO) {\r\n"
+                        + "        for (int _i = 0; _i < _g.length; _i++) {\r\n"
+                        + "          if (_ai == _idx) { _m3pl.setTrackSelectionParameters(_m3pl.getTrackSelectionParameters().buildUpon().setOverrideForType(new androidx.media3.exoplayer.trackselection.TrackSelectionOverride(_g.getMediaTrackGroup(), _i)).build()); }\r\n"
+                        + "          _ai++;\r\n"
+                        + "        }\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  }\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview select audio track index %d");
+        arrayList.add(hashMap);
+
+        hashMap = new HashMap<>();
+        hashMap.put("name", "iptvSelectSubtitleTrack");
+        hashMap.put("type", " ");
+        hashMap.put(
+                "code",
+                "{\r\n"
+                        + "  java.util.HashMap _m3st = (java.util.HashMap) %1$s.getTag();\r\n"
+                        + "  ExoPlayer _m3pl = _m3st == null ? null : (ExoPlayer) _m3st.get(\"p\");\r\n"
+                        + "  if (_m3pl != null) {\r\n"
+                        + "    int _idx = (int) %2$s;\r\n"
+                        + "    androidx.media3.common.Tracks _tracks = _m3pl.getCurrentTracks();\r\n"
+                        + "    int _si = 0;\r\n"
+                        + "    for (androidx.media3.common.Tracks.Group _g : _tracks.getGroups()) {\r\n"
+                        + "      if (_g.getType() == androidx.media3.common.C.TRACK_TYPE_TEXT) {\r\n"
+                        + "        for (int _i = 0; _i < _g.length; _i++) {\r\n"
+                        + "          if (_si == _idx) { _m3pl.setTrackSelectionParameters(_m3pl.getTrackSelectionParameters().buildUpon().setOverrideForType(new androidx.media3.exoplayer.trackselection.TrackSelectionOverride(_g.getMediaTrackGroup(), _i)).build()); }\r\n"
+                        + "          _si++;\r\n"
+                        + "        }\r\n"
+                        + "      }\r\n"
+                        + "    }\r\n"
+                        + "  }\r\n"
+                        + "}");
+        hashMap.put("color", "#9C27B0");
+        hashMap.put("palette", "-1");
+        hashMap.put("spec", "%m.mediaplayerview select subtitle track index %d");
+        arrayList.add(hashMap);
+
+        // ===== End IPTV Playlist blocks =====
+
         hashMap = new HashMap<>();
         hashMap.put("name", "launchApp");
         hashMap.put("type", " ");

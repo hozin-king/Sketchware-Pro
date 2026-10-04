@@ -139,6 +139,13 @@ public class Lx {
             content.append("implementation 'com.pierfrancescosoffritti:androidyoutubeplayer:10.0.5'\r\n");
         }
 
+        if (isLibraryNotExcluded(BuiltInLibraries.MEDIA3_UI, excludedLibraries) && extraMetadata.isMedia3PlayerUsed) {
+            content.append("implementation 'androidx.media3:media3-exoplayer:1.3.1'\r\n");
+            content.append("implementation 'androidx.media3:media3-exoplayer-dash:1.3.1'\r\n");
+            content.append("implementation 'androidx.media3:media3-exoplayer-hls:1.3.1'\r\n");
+            content.append("implementation 'androidx.media3:media3-ui:1.3.1'\r\n");
+        }
+
         if (isLibraryNotExcluded(BuiltInLibraries.CODEVIEW, excludedLibraries) && extraMetadata.isCodeViewUsed) {
             content.append("implementation 'br.tiagohm:codeview:0.4.0'\r\n");
         }
